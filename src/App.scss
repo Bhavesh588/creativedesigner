@@ -1,0 +1,11 @@
+@import './responsive/variables.scss';
+
+* {
+    margin: 0;
+    color: $color2;
+
+    .App {
+        height: 100vh;
+        background-image: linear-gradient(rgb(26, 25, 85), rgb(8, 9, 16));
+    }
+}
