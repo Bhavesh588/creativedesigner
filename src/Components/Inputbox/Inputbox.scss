@@ -1,0 +1,17 @@
+.inputbox {
+    .input_txt_filename {
+        text-align: center;
+        font-size: 20px;
+        background-color: transparent;
+        font-weight: 400;
+        border: 0;
+        transition: 0.2s ease-in-out;
+        border-bottom: 1px solid transparent;
+
+        &:focus {
+            outline: none;
+            border: 0;
+            border-bottom: 1px solid rgba($color: #fff, $alpha: 0.5);
+        }
+    }
+}
