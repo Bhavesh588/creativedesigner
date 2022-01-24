@@ -8,7 +8,7 @@ import Navigationbar from './Components/Navigationbar/Navigationbar';
 function App() {
 	return (
 		<div className='App'>
-            <div className='l'>
+            <div>
                 <Navigationbar />
                 <CodingPlatform />
             </div>

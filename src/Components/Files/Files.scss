@@ -1,0 +1,51 @@
+@import '../../responsive/variables';
+
+.files_main {
+    background-color: $color3;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 20px 0px;
+    color: rgba($color: #000000, $alpha: 0.7);
+    box-shadow: 5px 5px 3px;
+    transition: 0.1s ease-in-out;
+
+    &:hover {
+        box-shadow: 8px 8px 3px;
+        transform: translateX(-5px) translateY(-5px);
+        cursor: pointer;
+    }
+
+    .files {
+        display: flex;
+        justify-content: space-between;
+
+        .file_name {
+            display: flex;
+            align-items: center;
+
+            h5 {
+                margin: 0;
+            }
+        }
+
+        .file_option {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .file_code {
+        background-color: $color4;
+        height: 0px;
+        width: 100%;
+        margin-top: 0px;
+        transition: 0.1s ease-in-out;
+    }
+
+    .file_footer {
+        p {
+            margin: 0;
+            margin-top: 5px;
+        }
+    }
+}
