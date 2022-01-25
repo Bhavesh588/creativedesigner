@@ -13,6 +13,15 @@ const CodingPlatform = () => {
                         <Files filename="something.html" />
                         <Files filename="anything.css" />
                         <Files filename="like.js" />
+                        <div className='files_outer'>
+                            <Files filename="doing.html" />
+                        </div>
+                        <div className='files_outer'>
+                            <Files filename="anything.css" />
+                        </div>
+                        <div className='files_outer'>
+                            <Files filename="like.js" />
+                        </div>
                     </div>
                     {/* Live Preview, Console, etc... */}
                     <div className='col-lg'>
