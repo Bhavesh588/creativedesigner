@@ -2,22 +2,19 @@
 
 .files_main {
     background-color: $color3;
-    padding: 10px;
     border-radius: 8px;
     margin: 20px 0px;
     color: rgba($color: #000000, $alpha: 0.7);
     box-shadow: 5px 5px 3px;
     transition: 0.1s ease-in-out;
-
-    &:hover {
-        box-shadow: 8px 8px 3px;
-        transform: translateX(-5px) translateY(-5px);
-        cursor: pointer;
-    }
+    overflow: hidden;
 
     .files {
         display: flex;
+        cursor: pointer;
         justify-content: space-between;
+        padding: 10px;
+        // background-color: aqua;
 
         .file_name {
             display: flex;
@@ -35,11 +32,47 @@
     }
 
     .file_code {
-        background-color: $color4;
-        height: 0px;
-        width: 100%;
         margin-top: 0px;
+        height: 0px;
         transition: 0.1s ease-in-out;
+
+        .code {
+            background-color: $color4;
+            // height: 200px;
+            width: 100%;
+            transition: 0.2s ease-in-out;
+        }
+
+        .lang_option {
+            display: flex;
+            justify-content: space-between;
+
+            .line_count {
+                display: flex;
+                justify-content: space-around;
+
+                p {
+                    margin: 0;
+                    margin-left: 40px;
+                }
+            }
+
+            .select_lang {
+                select {
+                    background-color: transparent;
+                    border: 0;
+                    width: 110px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    option {
+                        color: black;
+                    }
+                }
+            }
+        }
     }
 
     .file_footer {
@@ -48,4 +81,9 @@
             margin-top: 5px;
         }
     }
+}
+
+.hovering:hover {
+    box-shadow: 8px 8px 3px;
+    transform: translateX(-5px) translateY(-5px);
 }

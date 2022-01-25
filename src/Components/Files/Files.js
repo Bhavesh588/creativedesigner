@@ -18,18 +18,24 @@ const Files = ({ filename }) => {
 
     const Expanding = () => {
         if(!collapse) {
-            document.getElementById(filename).style.height = '100px'
+            document.getElementById(filename).parentElement.classList.remove('hovering')
+            document.getElementById(filename).getElementsByClassName('code')[0].style.height = 'auto' 
+            document.getElementById(filename).style.height = 'auto'
             document.getElementById(filename).style.marginTop = '10px'
+            document.getElementById(filename).style.padding = '0px 20px 20px 20px'
             setCollapse(!collapse)
         } else {
+            document.getElementById(filename).parentElement.classList.add('hovering')
+            document.getElementById(filename).getElementsByClassName('code')[0].style.height = '0px' 
             document.getElementById(filename).style.height = '0px'
             document.getElementById(filename).style.marginTop = '0px'
+            document.getElementById(filename).style.padding = '0px'
             setCollapse(!collapse)
         }
     }
 
     return (
-        <div className='files_main'>
+        <div className='files_main hovering'>
             {/* Header of the Files */}
             <div className='files' onClick={Expanding}>
                 {/* File Name */}
@@ -51,6 +57,26 @@ const Files = ({ filename }) => {
             </div>
             {/* Code of the Files */}
             <div className='file_code' id={filename}>
+                <div className='code'>
+                    <p>1</p>
+                    <p>2</p>
+                    <p>3</p>
+                    <p>4</p>
+                    <p>5</p>
+                </div>
+                <div className='lang_option'>
+                    <div className='select_lang'>
+                        <select defaultValue={filename.split('.')[1]}>
+                            <option value='html'>HTML5</option>
+                            <option value='css'>CSS3</option>
+                            <option value='js'>JavaScript</option>
+                        </select>
+                    </div>
+                    <div className='line_count'>
+                        <p>365 chars</p>
+                        <p>23 lines</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
