@@ -10,6 +10,9 @@ const CodingPlatform = () => {
                 <div className='row p-5'>
                     {/* All Code Files Names */}
                     <div className='col-lg'>
+                        <Files filename="something.html" />
+                        <Files filename="anything.css" />
+                        <Files filename="like.js" />
                         <div className='files_outer'>
                             <Files filename="doing.html" />
                         </div>
