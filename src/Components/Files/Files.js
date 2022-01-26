@@ -1,19 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/material.css'
+import 'codemirror/mode/htmlmixed/htmlmixed'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/css/css'
+import { Controlled as ControlledEditor } from 'react-codemirror2'
 
 import '../FontAwesomeIcons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import './Files.scss'
 
-const Files = ({ filename }) => {
+const Files = ({ filename, value, onChange }) => {
 
     const [collapse, setCollapse] = useState(false)
+    const [language, setLanguage] = useState('')
+
+    useEffect(() => {
+        var spliting = filename.split('.')
+        if(spliting[1] === 'html') {
+            setLanguage('xml')
+            return 'html5'
+        } else if(spliting[1] === 'css') {
+            setLanguage('css')
+            return 'css3'
+        } else if(spliting[1] === 'js') {
+            setLanguage('javascript')
+            return 'js-square'
+        }
+    }, [filename])
 
     const lang = () => {
         var spliting = filename.split('.')
-        if(spliting[1] === 'html') return 'html5'
-        if(spliting[1] === 'css') return 'css3'
-        if(spliting[1] === 'js') return 'js-square'
+        if(spliting[1] === 'html') {
+            return 'html5'
+        } else if(spliting[1] === 'css') {
+            return 'css3'
+        } else if(spliting[1] === 'js') {
+            return 'js-square'
+        }
     }
 
     const Expanding = () => {
@@ -32,6 +56,10 @@ const Files = ({ filename }) => {
             document.getElementById(filename).style.padding = '0px'
             setCollapse(!collapse)
         }
+    }
+
+    const handleChange = (editor, data, value) => {
+        onChange(value)
     }
 
     return (
@@ -58,19 +86,26 @@ const Files = ({ filename }) => {
             {/* Code of the Files */}
             <div className='file_code' id={filename}>
                 <div className='code'>
-                    <p>1</p>
-                    <p>2</p>
-                    <p>3</p>
-                    <p>4</p>
-                    <p>5</p>
+                    <ControlledEditor
+                        onBeforeChange={handleChange}
+                        value={value}
+                        className='code-mirror-wrapper'
+                        options={{
+                            lineWrapping: true,
+                            lint: true,
+                            mode: language,
+                            lineNumbers: true,
+                            theme: 'material'
+                        }}
+                    />
                 </div>
                 <div className='lang_option'>
                     <div className='select_lang'>
-                        <select defaultValue={filename.split('.')[1]}>
+                        {/* <select defaultValue={filename.split('.')[1]}>
                             <option value='html'>HTML5</option>
                             <option value='css'>CSS3</option>
                             <option value='js'>JavaScript</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div className='line_count'>
                         <p>365 chars</p>

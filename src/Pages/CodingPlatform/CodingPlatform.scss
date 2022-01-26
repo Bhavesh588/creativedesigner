@@ -1,7 +1,30 @@
 @import '../../responsive/variables';
 
 .codingplatform {
-    .files_outer {
-        // margin: 20px 0px;
+    .scrollable {
+        overflow-y: scroll;
+        height: 800px;
+        // background-color: aqua;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: rgba($color: #fff, $alpha: 0.1);
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     }
 }
