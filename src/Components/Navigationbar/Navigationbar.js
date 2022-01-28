@@ -22,10 +22,10 @@ function Navigationbar() {
             {/* Filename */}
             <div className='filename'>
                 <Inputbox 
-                    aria-label="filename"
+                    aria-label="title"
                     type='text' 
-                    id='filename' 
-                    name='filename' 
+                    id='title' 
+                    name='title' 
                     value={filename} 
                     onChange={onChange}
                     onKeyPress={(ev) => {

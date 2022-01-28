@@ -9,8 +9,9 @@ import { Controlled as ControlledEditor } from 'react-codemirror2'
 
 import '../FontAwesomeIcons'
 import './Files.scss'
+import Inputbox from '../Inputbox/Inputbox'
 
-const Files = ({ filename, value, onChange }) => {
+const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
 
     const [collapse, setCollapse] = useState(false)
     const [language, setLanguage] = useState('')
@@ -37,6 +38,8 @@ const Files = ({ filename, value, onChange }) => {
             return 'css3'
         } else if(spliting[1] === 'js') {
             return 'js-square'
+        } else {
+            return 'align-left'
         }
     }
 
@@ -59,19 +62,37 @@ const Files = ({ filename, value, onChange }) => {
     }
 
     const handleChange = (editor, data, value) => {
-        onChange(value)
+        let coding = [...values]
+        coding[id] = value
+        onChange(coding)
     }
 
     return (
         <div className='files_main hovering'>
             {/* Header of the Files */}
-            <div className='files' onClick={Expanding}>
+            <div className='files'>
                 {/* File Name */}
                 <div className='file_name'>
                     <span className='mx-3'>
-                        <FontAwesomeIcon icon={['fab', lang()]} style={{ fontSize: 30 }} />
+                        {
+                            lang() !== 'align-left'
+                            ? <FontAwesomeIcon icon={['fab', lang()]} style={{ fontSize: 25 }} />
+                            : <FontAwesomeIcon icon={['fa', lang()]} style={{ fontSize: 25 }} />
+                        }
                     </span>
-                    <h5>{filename}</h5>
+                    <Inputbox 
+                        aria-label="filename"
+                        type='text' 
+                        id={'filename'+id} 
+                        name='filename' 
+                        value={filename} 
+                        onChange={(e) => onChangeFilename(e, id)}
+                        style={{ zIndex: 3 }}
+                    />
+                    {/* <h5>{filename}</h5> */}
+                </div>
+                {/* Space for clicking to Expand and collapse */}
+                <div className='flex-grow-1 p-1 w-100' onClick={Expanding}>
                 </div>
                 {/* Copy and more options */}
                 <div className='file_option'>
@@ -88,7 +109,7 @@ const Files = ({ filename, value, onChange }) => {
                 <div className='code'>
                     <ControlledEditor
                         onBeforeChange={handleChange}
-                        value={value}
+                        value={values[id]}
                         className='code-mirror-wrapper'
                         options={{
                             lineWrapping: true,

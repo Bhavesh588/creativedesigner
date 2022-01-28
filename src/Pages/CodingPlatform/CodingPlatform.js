@@ -5,9 +5,19 @@ import Files from '../../Components/Files/Files';
 
 const CodingPlatform = () => {
 
-    const [html, setHtml] = useState('')
-    const [css, setCss] = useState('')
-    const [js, setJs] = useState('')
+    const [filename, setFilename] = useState(['doing.html', 'anything.css', 'like.js'])
+    const [code, setCode] = useState(['', '', ''])
+
+    // const [html, setHtml] = useState('')
+    // const [css, setCss] = useState('')
+    // const [js, setJs] = useState('')
+
+
+    const onChangeFilename = (e, id) => {
+        let val = [...filename]
+        val[id] = e.target.value
+        setFilename(val)
+    }
 
 	return (
 		<div className='codingplatform'>
@@ -15,15 +25,13 @@ const CodingPlatform = () => {
                 <div className='row p-5'>
                     {/* All Code Files Names */}
                     <div className='col-lg scrollable'>
-                        <div className='files_outer'>
-                            <Files filename="doing.html" value={html} onChange={setHtml} />
-                        </div>
-                        <div className='files_outer'>
-                            <Files filename="anything.css" value={css} onChange={setCss} />
-                        </div>
-                        <div className='files_outer'>
-                            <Files filename="like.js" value={js} onChange={setJs} />
-                        </div>
+                        {
+                            filename?.map((file, index) => 
+                                <div className='files_outer' key={index}>
+                                    <Files filename={file} id={index} values={code} onChange={setCode} onChangeFilename={onChangeFilename} />
+                                </div>
+                            )
+                        }
                     </div>
                     {/* Live Preview, Console, etc... */}
                     <div className='col-lg'>
