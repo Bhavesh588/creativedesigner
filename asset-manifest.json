@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/creativedesigner/static/css/main.73d63b12.css",
+    "main.js": "/creativedesigner/static/js/main.14a321b3.js",
+    "static/js/787.4dfbf816.chunk.js": "/creativedesigner/static/js/787.4dfbf816.chunk.js",
+    "static/media/profile_pic.jpg": "/creativedesigner/static/media/profile_pic.ca16128b1de13e0b28fd.jpg",
+    "index.html": "/creativedesigner/index.html",
+    "main.73d63b12.css.map": "/creativedesigner/static/css/main.73d63b12.css.map",
+    "main.14a321b3.js.map": "/creativedesigner/static/js/main.14a321b3.js.map",
+    "787.4dfbf816.chunk.js.map": "/creativedesigner/static/js/787.4dfbf816.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.73d63b12.css",
+    "static/js/main.14a321b3.js"
+  ]
+}
