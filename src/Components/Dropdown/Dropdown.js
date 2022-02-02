@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Toggle from '../Toggle/Toggle';
 
 import './Dropdown.scss'
 
-function Dropdown() {
+function Dropdown(props) {
 
-    const [saveAuto, setSaveAuto] = useState(false)
-    const [autoPre, setAutoPre] = useState(false)
-    const [codeSpace, setCodeSpace] = useState(false)
-    // const [indent, setIndent] = useState('')
-    const [mode, setMode] = useState(false)
+    const { saveAuto, autoPre, codeSpace, darkmode, setSaveAuto, setAutoPre, setCodeSpace, setdarkmode } = props
 
     return (
         <div className='dropdownlist bg-light'>
@@ -30,10 +27,48 @@ function Dropdown() {
             </div>
             <div className='item_box'>
                 <div className='item_txt'>Dark Mode</div>
-                <Toggle value={mode} setvalue={setMode} />
+                <Toggle value={darkmode} setvalue={setdarkmode} />
             </div>
         </div>
     );
 }
 
-export default Dropdown;
+const mapStateToProps = (state) => {
+	return {
+        saveAuto: state.saveAuto,
+        autoPre: state.autoPre,
+        codeSpace: state.codeSpace,
+		darkmode: state.darkmode,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+        setSaveAuto: (val) => {
+            dispatch({
+                type: "SAVEAUTO",
+                item: val,
+            });
+        },
+        setAutoPre: (val) => {
+			dispatch({
+				type: "AUTOPRE",
+				item: val,
+			});
+		},
+        setCodeSpace: (val) => {
+			dispatch({
+				type: "CODESPACE",
+				item: val,
+			});
+		},
+		setdarkmode: (val) => {
+			dispatch({
+				type: "DARKMODE",
+				item: val,
+			});
+		},
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dropdown);
