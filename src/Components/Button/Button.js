@@ -7,7 +7,9 @@ const Button = ({ children, ...props }) => {
         <div className='button'>
             {
                 props.type === 'buttontxt'
-                ? <button className='button_btn_txt'>{children}</button>
+                ? props.name === 'Settings'
+                    ? <button className='button_btn_txt' onClick={() => props.setToggleDrop(!props.toggleDrop)}>{children}</button>
+                    : <button className='button_btn_txt'>{children}</button>
                 : <button className='button_btn_pic'>{children}</button>
             }
         </div>

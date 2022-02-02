@@ -4,10 +4,12 @@ import './Navigationbar.scss'
 
 import Button from '../Button/Button';
 import Inputbox from '../Inputbox/Inputbox';
+import Dropdown from '../Dropdown/Dropdown';
 
 function Navigationbar() {
 
     const [filename, setFileName] = useState('Untitled')
+    const [toggleDrop, setToggleDrop] = useState(false)
 
     const onChange = (e) => {
         setFileName(e.target.value)
@@ -41,8 +43,15 @@ function Navigationbar() {
             </div>
             {/* Profile */}
             <div className='profile'>
-                <Button type='buttontxt'>Save</Button>
-                <Button type='buttontxt'>Setting</Button>
+                <Button type='buttontxt' name="Save">Save</Button>
+                <div style={{ position: 'relative' }}>
+                    <Button type='buttontxt' name="Settings" setToggleDrop={setToggleDrop} toggleDrop={toggleDrop}>Setting</Button>
+                    {
+                        toggleDrop
+                        ? <Dropdown />
+                        : null
+                    }
+                </div>
                 <Button type='buttonpic'>
                     <img src={require('../../assets/profile_pic.jpg')} alt='Profile' className='profilepic' />
                 </Button>
