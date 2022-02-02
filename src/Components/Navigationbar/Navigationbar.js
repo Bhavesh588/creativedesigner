@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import './Navigationbar.scss'
 
@@ -6,7 +7,9 @@ import Button from '../Button/Button';
 import Inputbox from '../Inputbox/Inputbox';
 import Dropdown from '../Dropdown/Dropdown';
 
-function Navigationbar() {
+function Navigationbar(props) {
+
+    const { darkmode } = props
 
     const [filename, setFileName] = useState('Untitled')
     const [toggleDrop, setToggleDrop] = useState(false)
@@ -16,10 +19,10 @@ function Navigationbar() {
     }
 
     return (
-        <div className='navigationbar'>
+        <div className='navigationbar' style={{ backgroundColor: darkmode ? '#1a1955' : 'white', transition: '0.3s' }}>
             {/* Logo */}
             <div className='title'>
-                <h2>Creative Developer</h2>
+                <h2 style={{ color: darkmode ? null : 'black' }}>Creative Developer</h2>
             </div>
             {/* Filename */}
             <div className='filename'>
@@ -60,4 +63,10 @@ function Navigationbar() {
     );
 }
 
-export default Navigationbar;
+const mapStateToProps = (state) => {
+	return {
+		darkmode: state.darkmode,
+	};
+};
+
+export default connect(mapStateToProps, null)(Navigationbar);

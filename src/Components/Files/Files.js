@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/material.css'
+import 'codemirror/theme/paraiso-dark.css'
+import 'codemirror/theme/paraiso-light.css'
 import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
 import { Controlled as ControlledEditor } from 'react-codemirror2'
+import { connect } from 'react-redux'
 
 import '../FontAwesomeIcons'
 import './Files.scss'
 import Inputbox from '../Inputbox/Inputbox'
 
-const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
+const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) => {
+
+    const { darkmode } = props
 
     const [collapse, setCollapse] = useState(false)
     const [language, setLanguage] = useState('')
@@ -68,7 +72,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
     }
 
     return (
-        <div className='files_main hovering'>
+        <div className='files_main hovering' style={{ backgroundColor: darkmode ? '#522ebd' : 'rgba(0,0,0,0.3)' }}>
             {/* Header of the Files */}
             <div className='files'>
                 {/* File Name */}
@@ -116,7 +120,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
                             lint: true,
                             mode: language,
                             lineNumbers: true,
-                            theme: 'material'
+                            theme: darkmode ? 'paraiso-dark' : 'paraiso-light'
                         }}
                     />
                 </div>
@@ -138,4 +142,10 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
     );
 };
 
-export default Files;
+const mapStateToProps = (state) => {
+	return {
+		darkmode: state.darkmode,
+	};
+};
+
+export default connect(mapStateToProps, null)(Files);

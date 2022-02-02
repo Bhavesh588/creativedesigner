@@ -2,7 +2,7 @@ const initialState = {
     saveAuto: false,
     autoPre: false,
     codeSpace: false,
-    darkmode: false
+    darkmode: true
 }
 
 const rootReducer = (state = initialState, action) => {
