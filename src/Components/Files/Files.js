@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/material.css'
+import 'codemirror/theme/paraiso-dark.css'
+import 'codemirror/theme/paraiso-light.css'
 import 'codemirror/mode/htmlmixed/htmlmixed'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
 import { Controlled as ControlledEditor } from 'react-codemirror2'
+import { connect } from 'react-redux'
 
 import '../FontAwesomeIcons'
 import './Files.scss'
 import Inputbox from '../Inputbox/Inputbox'
+import variable from '../../responsive/_variables.scss'
 
-const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
+const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) => {
+
+    const { darkmode } = props
 
     const [collapse, setCollapse] = useState(false)
     const [language, setLanguage] = useState('')
@@ -68,7 +73,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
     }
 
     return (
-        <div className='files_main hovering'>
+        <div className='files_main hovering' style={{ backgroundColor: darkmode ? variable.color3 : 'rgba(0,0,0,0.3)' }}>
             {/* Header of the Files */}
             <div className='files'>
                 {/* File Name */}
@@ -76,8 +81,8 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
                     <span className='mx-3'>
                         {
                             lang() !== 'align-left'
-                            ? <FontAwesomeIcon icon={['fab', lang()]} style={{ fontSize: 25 }} />
-                            : <FontAwesomeIcon icon={['fa', lang()]} style={{ fontSize: 25 }} />
+                            ? <FontAwesomeIcon icon={['fab', lang()]} style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
+                            : <FontAwesomeIcon icon={['fa', lang()]} style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
                         }
                     </span>
                     <Inputbox 
@@ -97,10 +102,10 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
                 {/* Copy and more options */}
                 <div className='file_option'>
                     <span className='mx-3'>
-                        <FontAwesomeIcon icon='copy' style={{ fontSize: 25 }} />
+                        <FontAwesomeIcon icon='copy' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
                     </span>
                     <span className='mx-3'>
-                        <FontAwesomeIcon icon='ellipsis-h' style={{ fontSize: 25 }} />
+                        <FontAwesomeIcon icon='ellipsis-h' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
                     </span>
                 </div>
             </div>
@@ -116,7 +121,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
                             lint: true,
                             mode: language,
                             lineNumbers: true,
-                            theme: 'material'
+                            theme: darkmode ? 'paraiso-dark' : 'paraiso-light'
                         }}
                     />
                 </div>
@@ -138,4 +143,10 @@ const Files = ({ id, filename, values, onChange, onChangeFilename }) => {
     );
 };
 
-export default Files;
+const mapStateToProps = (state) => {
+	return {
+		darkmode: state.darkmode,
+	};
+};
+
+export default connect(mapStateToProps, null)(Files);
