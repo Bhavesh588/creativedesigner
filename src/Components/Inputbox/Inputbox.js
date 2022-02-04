@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import variable from '../../responsive/_variables.scss'
 
 import './Inputbox.scss'
 
@@ -14,7 +15,7 @@ const Inputbox = ({ type, id, name, onChange, onKeyPress, placeholder='', value=
                 ? <div>
                     <input 
                         className='input_txt_filename text-center' 
-                        style={{ color: darkmode ? null : 'black' }}
+                        style={{ color: darkmode ? variable.color2 : variable.color1, fontSize: 25 }}
                         type={type} 
                         id={id} 
                         name={name} 
@@ -27,7 +28,7 @@ const Inputbox = ({ type, id, name, onChange, onKeyPress, placeholder='', value=
                 : <div>
                     <input 
                         className='input_txt_filename'
-                        style={{ color: darkmode ? null : 'black' }} 
+                        style={{ color: darkmode ? variable.color2 : variable.color1 }} 
                         type={type} 
                         id={id} name={name} 
                         placeholder={placeholder} 

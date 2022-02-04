@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import './Navigationbar.scss'
+import variable from '../../responsive/_variables.scss'
 
 import Button from '../Button/Button';
 import Inputbox from '../Inputbox/Inputbox';
@@ -19,10 +20,10 @@ function Navigationbar(props) {
     }
 
     return (
-        <div className='navigationbar' style={{ backgroundColor: darkmode ? '#1a1955' : 'white', transition: '0.3s' }}>
+        <div className='navigationbar' style={{ backgroundColor: darkmode ? variable.color4 : variable.color2, transition: '0.3s' }}>
             {/* Logo */}
             <div className='title'>
-                <h2 style={{ color: darkmode ? null : 'black' }}>Creative Developer</h2>
+                <h2 style={{ color: darkmode ? variable.color2 : variable.color1 }}>Creative Developer</h2>
             </div>
             {/* Filename */}
             <div className='filename'>
