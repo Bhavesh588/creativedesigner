@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.scss';
 import variable from './responsive/_variables.scss'
 
