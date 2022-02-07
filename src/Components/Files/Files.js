@@ -14,12 +14,13 @@ import './Files.scss'
 import Inputbox from '../Inputbox/Inputbox'
 import variable from '../../responsive/_variables.scss'
 
-const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) => {
+const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename, onDeleteFilename, ...props }) => {
 
     const { darkmode } = props
 
     const [collapse, setCollapse] = useState(false)
     const [language, setLanguage] = useState('')
+    const [dropdown, setDropDown] = useState(false)
 
     useEffect(() => {
         var spliting = filename.split('.')
@@ -72,6 +73,16 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) =
         onChange(coding)
     }
 
+    const newfile = () => {
+        setDropDown(false)
+        onAddFilename('Untitled', id)
+    }
+
+    const deletefile = () => {
+        setDropDown(false)
+        onDeleteFilename(id)
+    }
+
     return (
         <div className='files_main hovering' style={{ backgroundColor: darkmode ? variable.color3 : 'rgba(0,0,0,0.3)' }}>
             {/* Header of the Files */}
@@ -91,7 +102,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) =
                         id={'filename'+id} 
                         name='filename' 
                         value={filename} 
-                        onChange={(e) => onChangeFilename(e, id)}
+                        onChange={(e) => onChangeFilename(e.target.value, id)}
                         style={{ zIndex: 3 }}
                     />
                     {/* <h5>{filename}</h5> */}
@@ -105,9 +116,17 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, ...props }) =
                         <FontAwesomeIcon icon='copy' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
                     </span>
                     <span className='mx-3'>
-                        <FontAwesomeIcon icon='ellipsis-h' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
+                        {/* DropDown to add New File */}
+                        <FontAwesomeIcon icon='ellipsis-h' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} onClick={() => setDropDown(!dropdown)} />
                     </span>
                 </div>
+            </div>
+            {/* DropDown */}
+            <div className='droplist' id="dropfile" style={{ height: dropdown ? 'auto' : 0 }}>
+                <ul className='list'>
+                    <li onClick={() => newfile()}>New File</li>
+                    <li onClick={() => deletefile()}>Delete File</li>
+                </ul>
             </div>
             {/* Code of the Files */}
             <div className='file_code' id={filename}>

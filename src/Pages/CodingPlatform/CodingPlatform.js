@@ -13,9 +13,21 @@ const CodingPlatform = () => {
     // const [js, setJs] = useState('')
 
 
-    const onChangeFilename = (e, id) => {
+    const onChangeFilename = (values, id) => {
         let val = [...filename]
-        val[id] = e.target.value
+        val[id] = values
+        setFilename(val)
+    }
+
+    const onAddFilename = (values, id) => {
+        let val = [...filename]
+        val.splice(id+1, 0, values)
+        setFilename(val)
+    }
+
+    const onDeleteFilename = (id) => {
+        let val = [...filename]
+        val.splice(id, 1)
         setFilename(val)
     }
 
@@ -28,7 +40,15 @@ const CodingPlatform = () => {
                         {
                             filename?.map((file, index) => 
                                 <div className='files_outer' key={index}>
-                                    <Files filename={file} id={index} values={code} onChange={setCode} onChangeFilename={onChangeFilename} />
+                                    <Files 
+                                        filename={file} 
+                                        id={index} 
+                                        values={code} 
+                                        onChange={setCode} 
+                                        onChangeFilename={onChangeFilename}
+                                        onAddFilename={onAddFilename}
+                                        onDeleteFilename={onDeleteFilename}
+                                    />
                                 </div>
                             )
                         }
