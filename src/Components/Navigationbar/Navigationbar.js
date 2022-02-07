@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import './Navigationbar.scss'
@@ -18,6 +18,23 @@ function Navigationbar(props) {
     const onChange = (e) => {
         setFileName(e.target.value)
     }
+
+    useEffect(() => {
+        document.addEventListener("click", (evt) => {
+            const flyoutEl = document.getElementById("drop");
+            let targetEl = evt.target; // clicked element      
+            do {
+                if(targetEl === flyoutEl) {
+                    // This is a click inside, does nothing, just return.
+                    return;
+                }
+                // Go up the DOM
+                targetEl = targetEl.parentNode;
+            } while (targetEl);
+            // This is a click outside.
+            setToggleDrop(false)
+        });
+    }, [])
 
     return (
         <div className='navigationbar' style={{ backgroundColor: darkmode ? variable.color4 : variable.color2, transition: '0.3s' }}>
@@ -48,7 +65,7 @@ function Navigationbar(props) {
             {/* Profile */}
             <div className='profile'>
                 <Button type='buttontxt' name="Save">Save</Button>
-                <div style={{ position: 'relative' }}>
+                <div style={{ position: 'relative' }} id="drop">
                     <Button type='buttontxt' name="Settings" setToggleDrop={setToggleDrop} toggleDrop={toggleDrop}>Setting</Button>
                     {
                         toggleDrop

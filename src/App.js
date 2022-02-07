@@ -1,18 +1,14 @@
-import React from 'react';
 import './App.scss';
-import variable from './responsive/_variables.scss'
 
 import CodingPlatform from './Pages/CodingPlatform/CodingPlatform';
 import Navigationbar from './Components/Navigationbar/Navigationbar';
-import { connect } from 'react-redux';
 
 // Default color of Text is White
 
-function App(props) {
+function App() {
 
-    const { darkmode } = props
 	return (
-		<div className='App' style={darkmode ? { backgroundImage: `linear-gradient(${variable.color5}, ${variable.color1}` } : { backgroundColor: variable.color2 }}>
+		<div className='App'>
             <div>
                 <Navigationbar />
                 <CodingPlatform />
@@ -21,10 +17,4 @@ function App(props) {
 	);
 }
 
-const mapStateToProps = (state) => {
-	return {
-		darkmode: state.darkmode,
-	};
-};
-
-export default connect(mapStateToProps, null)(App);
+export default App;
