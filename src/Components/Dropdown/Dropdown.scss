@@ -1,3 +1,5 @@
+@import '../../responsive/variables';
+
 .dropdownlist {
     position: absolute;
     right: 10px;
@@ -29,5 +31,26 @@
         //     background-color: rgba($color: #000000, $alpha: 0.1);
         //     cursor: pointer;
         // }
+
+        .indentation {
+            display: flex;
+
+            .icon_outer {
+                background-color: $color3;
+                height: 20px;
+                width: 20px;
+                border-radius: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0px 8px;
+
+                .icon_style {
+                    font-size: 10px;
+                    cursor: pointer;
+                    color: $color2;
+                }
+            }
+        }
     }
 }

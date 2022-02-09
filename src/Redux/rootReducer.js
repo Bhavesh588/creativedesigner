@@ -2,7 +2,8 @@ const initialState = {
     saveAuto: false,
     autoPre: false,
     codeSpace: false,
-    darkmode: true
+    darkmode: true,
+    indent: 2
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -26,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 darkmode: action.item
+            }
+        case 'INDENT':
+            return {
+                ...state,
+                indent: action.item
             }
         default:
             return state

@@ -1,0 +1,43 @@
+@import '../../responsive/variables';
+
+.tooltip1 {
+    color: $color2;
+    position: relative;
+    display: inline-block;
+    align-items: center;
+
+    .tooltiptext {
+        visibility: hidden;
+        width: 100px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 5px;
+        z-index: 1;
+        position: absolute;
+        top: 110%;
+        left: 50%;
+        margin-left: -60px;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .tooltiptext::after {
+        content: ' ';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent black transparent;
+    }
+
+    &:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+}

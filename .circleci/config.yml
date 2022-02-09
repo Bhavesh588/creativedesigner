@@ -16,8 +16,20 @@ jobs:
       - run: echo "testing code"
       - run: npm install
       - run: npm test
+  deploy:
+    docker:
+      - image: cimg/node:14.17.5
+    steps:
+      - checkout
+      - run: echo "testing code"
+      - run: npm install
+      - run: npm run deploy
 workflows:
   build_test:
     jobs:
       - build
       - test
+      - deploy:
+        - require:
+          - build
+          - test

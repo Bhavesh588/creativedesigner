@@ -21,14 +21,20 @@ const CodingPlatform = () => {
 
     const onAddFilename = (values, id) => {
         let val = [...filename]
+        let co = [...code]
         val.splice(id+1, 0, values)
+        co.splice(id+1, 0, '')
         setFilename(val)
+        setCode(co)
     }
 
     const onDeleteFilename = (id) => {
         let val = [...filename]
+        let co = [...code]
         val.splice(id, 1)
+        co.splice(id, 1)
         setFilename(val)
+        setCode(co)
     }
 
 	return (
