@@ -7,6 +7,7 @@ import variable from '../../responsive/_variables.scss'
 import Button from '../Button/Button';
 import Inputbox from '../Inputbox/Inputbox';
 import Dropdown from '../Dropdown/Dropdown';
+import Tooltips from '../Tooltips/Tooltips';
 
 function Navigationbar(props) {
 
@@ -64,9 +65,13 @@ function Navigationbar(props) {
             </div>
             {/* Profile */}
             <div className='profile'>
-                <Button type='buttontxt' name="Save">Save</Button>
+                <Tooltips tips="Save it in Cloud">
+                    <Button type='buttontxt' name="Save">Save</Button>
+                </Tooltips>
                 <div style={{ position: 'relative' }} id="drop">
-                    <Button type='buttontxt' name="Settings" setToggleDrop={setToggleDrop} toggleDrop={toggleDrop}>Setting</Button>
+                    <Tooltips tips="Settings">
+                        <Button type='buttontxt' name="Settings" setToggleDrop={setToggleDrop} toggleDrop={toggleDrop}>Setting</Button>
+                    </Tooltips>
                     {
                         toggleDrop
                         ? <Dropdown />

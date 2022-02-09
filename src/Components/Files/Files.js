@@ -13,14 +13,19 @@ import '../FontAwesomeIcons'
 import './Files.scss'
 import Inputbox from '../Inputbox/Inputbox'
 import variable from '../../responsive/_variables.scss'
+import Tooltips from '../Tooltips/Tooltips';
 
 const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename, onDeleteFilename, ...props }) => {
 
-    const { darkmode } = props
+    const { darkmode, indent } = props
 
     const [collapse, setCollapse] = useState(false)
     const [language, setLanguage] = useState('')
     const [dropdown, setDropDown] = useState(false)
+    const [line, setLine] = useState(1)
+    const [character, setCharacter] = useState(0)
+
+    const [copied, setCopied] = useState('Copy Code')
 
     useEffect(() => {
         var spliting = filename.split('.')
@@ -83,6 +88,11 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename
         onDeleteFilename(id)
     }
 
+    function countChar(val) {
+        var withOutSpace = val.replace(/\s+/g, '').length;
+        return withOutSpace
+    }
+
     return (
         <div className='files_main hovering' style={{ backgroundColor: darkmode ? variable.color3 : 'rgba(0,0,0,0.3)' }}>
             {/* Header of the Files */}
@@ -108,17 +118,44 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename
                     {/* <h5>{filename}</h5> */}
                 </div>
                 {/* Space for clicking to Expand and collapse */}
-                <div className='flex-grow-1 p-1 w-100' onClick={Expanding}>
+                <div className='flex-grow-1 p-1 w-100' onClick={Expanding} style={{ cursor: 'pointer' }}>
                 </div>
                 {/* Copy and more options */}
                 <div className='file_option'>
-                    <span className='mx-3'>
-                        <FontAwesomeIcon icon='copy' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} />
-                    </span>
-                    <span className='mx-3'>
-                        {/* DropDown to add New File */}
-                        <FontAwesomeIcon icon='ellipsis-h' style={{ fontSize: 25, color: darkmode? variable.color2 : variable.color1 }} onClick={() => setDropDown(!dropdown)} />
-                    </span>
+                    <Tooltips tips={copied}>
+                        <div className='mx-3'>
+                            {/* Copy the code and paste it anywhere you want */}
+                            <FontAwesomeIcon 
+                                icon='copy' 
+                                style={{ 
+                                    fontSize: 25, 
+                                    color: darkmode? variable.color2 : variable.color1, 
+                                    cursor: 'pointer' 
+                                }} 
+                                onClick={() => {
+                                    setCopied('Copied')
+                                    setTimeout(() => {
+                                        setCopied('Copy Code')
+                                    }, 3000)
+                                    navigator.clipboard.writeText(values[id])
+                                }}
+                            />
+                        </div>
+                    </Tooltips>
+                    <Tooltips tips="More">
+                        <div className='mx-3'>
+                            {/* DropDown to add New File */}
+                            <FontAwesomeIcon 
+                                icon='ellipsis-h' 
+                                style={{ 
+                                    fontSize: 25, 
+                                    color: darkmode? variable.color2 : variable.color1, 
+                                    cursor: 'pointer' 
+                                }} 
+                                onClick={() => setDropDown(!dropdown)} 
+                            />
+                        </div>
+                    </Tooltips>
                 </div>
             </div>
             {/* DropDown */}
@@ -135,12 +172,19 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename
                         onBeforeChange={handleChange}
                         value={values[id]}
                         className='code-mirror-wrapper'
+                        onChange={(doc) => {
+                            setLine(doc.lineCount())
+                            setCharacter(countChar(values[id]))
+                        }}
                         options={{
                             lineWrapping: true,
                             lint: true,
                             mode: language,
                             lineNumbers: true,
-                            theme: darkmode ? 'paraiso-dark' : 'paraiso-light'
+                            theme: darkmode ? 'paraiso-dark' : 'paraiso-light',
+                            indentUnit: indent,
+                            indentWithTabs: true,
+                            tabSize: indent
                         }}
                     />
                 </div>
@@ -153,8 +197,8 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename
                         </select> */}
                     </div>
                     <div className='line_count'>
-                        <p>365 chars</p>
-                        <p>23 lines</p>
+                        <p style={{ color: darkmode ? 'white' : 'black' }}>{character} chars</p>
+                        <p style={{ color: darkmode ? 'white' : 'black' }}>{line} lines</p>
                     </div>
                 </div>
             </div>
@@ -165,6 +209,7 @@ const Files = ({ id, filename, values, onChange, onChangeFilename, onAddFilename
 const mapStateToProps = (state) => {
 	return {
 		darkmode: state.darkmode,
+        indent: state.indent
 	};
 };
 
